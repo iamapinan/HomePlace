@@ -1,0 +1,38 @@
+image: saphidev/react-native-gitlab-docker
+stages:
+  - test
+  - build
+
+cache:
+  key: ${CI_PROJECT_ID}
+  paths:
+  - android/.gradle/
+  - node_modules/
+
+default:
+  before_script:
+    - npm install
+
+Test:
+  stage: test
+  only:
+    - dev
+  except:
+    - master
+  script:
+    - npm run test
+
+build:
+  stage: build
+  only:
+    - tags
+  script:
+    - cd android && ls
+    - ./gradlew assembleRelease
+    - mkdir ../apk && cp -fr app/build/outputs/apk/* ../apk/
+    
+  artifacts:
+    name: "${CI_PROJECT_ID}_release_${CI_COMMIT_REF_NAME}"
+    expire_in: 24 hour
+    paths:
+    - apk/
