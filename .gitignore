@@ -34,7 +34,8 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
-
+*-lock.json
+*.lock
 # BUCK
 buck-out/
 \.buckd/
