@@ -31,11 +31,11 @@ jobs:
     - name: linking file
       run: react-native link
     - name: Build with Gradle
-      run: cd ./android/ && ./gradlew assembleDebug
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v2
+      run: cd ./android/ && ./gradlew assembleRelease
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v1
       with:
         # Artifact name
-        name: app-debug.apk
+        name: app-release.apk
         # Destination path
-        path: ./android/app/build/outputs/apk/debug
+        path: android/app/build/outputs/apk/release/
