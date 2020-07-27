@@ -186,7 +186,10 @@ export default class Shop extends Component {
 
   renderItem = ({item}) => (
     <TouchableOpacity
-      onPress={() => Actions.push('StoreDetails', {store: item})}
+      onPress={() => {
+        if(item.isOpen)
+          Actions.push('StoreDetails', {store: item})
+      }}
       style={{
         padding: 5,
         borderRadius: 4,
@@ -196,6 +199,11 @@ export default class Shop extends Component {
         justifyContent: 'flex-start',
       }}>
       <View style={{width: 100, marginRight: 15}}>
+        {
+          !item.isOpen &&
+            <View style={{width: 100, height: 100, opacity: 0.6, backgroundColor: '#000', position: 'absolute', zIndex: 1}}>
+            </View>
+        }
         <Image source={{uri: item.image}} style={{width: 100, height: 100}} />
       </View>
       <View

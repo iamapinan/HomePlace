@@ -64,8 +64,15 @@ export default class StoreDetails extends Component {
   RightRender = propsItem => {
     return (
       <TouchableOpacity onPress={() => Actions.pop()}>
-        <Icon name="shopping-basket" type="FontAwesome5" color="white" size={30} />
-        <View style={styles.reddot}></View>
+          <View> 
+            <Icon name="shopping-cart" type="Feather" color={Colors.white} size={24} />
+            {
+              this.state.cart.length == 0 &&
+                  <View style={styles.reddot}></View>
+            }
+            </View>
+
+
       </TouchableOpacity>
     );
   };
@@ -85,7 +92,7 @@ export default class StoreDetails extends Component {
         style={{
           flexDirection: 'row',
           backgroundColor: Colors.white,
-          marginVertical: 5,
+          marginVertical: 1,
           padding: 10,
           borderRadius: util.borderRadius,
           ...baseStyle.shadowDefault,
@@ -124,7 +131,7 @@ export default class StoreDetails extends Component {
           />
           <ScrollView>
             <View style={{...styles.contentContainer, paddingHorizontal: 10}}>
-              <View
+              <TouchableOpacity
                 style={{
                   backgroundColor: Colors.white,
                   padding: 10,
@@ -148,10 +155,11 @@ export default class StoreDetails extends Component {
                     style={{
                       color: Colors.white,
                       height: 24,
-                      borderRadius: 15,
+                      maxWidth: 80,
+                      opacity: 0.8,
                       paddingVertical: 1,
                       paddingHorizontal: 5,
-                      backgroundColor: Colors.orange,
+                      backgroundColor: Colors.black,
                     }}>
                     อาหาร
                   </Text>
@@ -205,7 +213,7 @@ export default class StoreDetails extends Component {
                     </Text>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
                 data={this.state.store.products}

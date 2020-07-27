@@ -50,12 +50,11 @@ export default class NextStep extends Component {
     const genderOptions = [
       {
         value: 'male',
-        label: 'Male',
-        color: 'orange',
+        label: 'ชาย',
       },
       {
         value: 'female',
-        label: 'Female',
+        label: 'หญิง',
       },
     ];
 
@@ -141,16 +140,17 @@ export default class NextStep extends Component {
                     this.setState({birthDay: date});
                   }}
                 />
-
-                <RNPickerSelect
-                  onValueChange={value => this.setState({gender: value})}
-                  items={genderOptions}
-                  placeholder={{
-                    label: 'ไม่ระบุเพศ',
-                    value: null,
-                  }}
-                  style={baseStyle.inputContainer}
-                />
+                <View style={{borderRadius: util.radiusSize, backgroundColor: '#fff', paddingVertical: 10, paddingHorizontal: 10, borderWidth: 1, borderColor: '#ccc'}}>
+                  <RNPickerSelect
+                    onValueChange={value => this.setState({gender: value})}
+                    items={genderOptions}
+                    placeholder={{
+                      label: 'ไม่ระบุเพศ',
+                      value: null,
+                    }}
+                    style={{...baseStyle.inputContainer}}
+                  />
+                </View>
 
                 <Input
                   placeholder="เลขที่บ้าน"

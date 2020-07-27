@@ -23,7 +23,7 @@ const lightFont = 'IBMPlexSansThai-Light';
 const boldFont = 'IBMPlexSansThai-Bold';
 const util = {
   screenPadding: 24,
-  radiusSize: 6,
+  radiusSize: 10,
   objectWidth: width - 48,
 };
 const baseStyle = StyleSheet.create({

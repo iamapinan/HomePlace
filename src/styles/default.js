@@ -66,13 +66,13 @@ const homeStyles = StyleSheet.create({
     fontFamily: defaultFont,
   },
   reddot: {
-    width: 8,
-    height: 8,
-    backgroundColor: '#f00',
+    width: 7,
+    height: 7,
+    backgroundColor: '#f44',
     borderRadius: 15,
     zIndex: 1,
-    marginTop: 15,
-    right: 10,
+    marginTop: -5,
+    right:-5,
     position: 'absolute',
   }
 });
