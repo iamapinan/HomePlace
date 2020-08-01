@@ -22,6 +22,19 @@ react-native run-ios
 // for android test
 react-native run-android
 ```
+### Troubleshooter
+`error: Error: Unable to resolve module @react-native-community/toolbar-android from node_modules/react-native-vector-icons/lib/toolbar-android.js: @react-native-community/toolbar-android could not be found within the project.` 
+
+**To fix**
+```
+rm -rf node_modules
+rm package-lock.json
+npm i
+yarn add @react-native-community/toolbar-android
+react-native link
+react-native start --reset-cache
+react-native run-android
+```
 
 ### folder structure
 `src/pages` is page for application.  
