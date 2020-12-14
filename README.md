@@ -1,7 +1,9 @@
 ![Build Status](https://github.com/iamapinan/HomePlace/workflows/Java%20CI%20with%20Gradle/badge.svg)
 
 # HomePlace
-version 1.0 (unreleased)
+I make this app for idea proving for food order app.  
+You can use this app as a example to learn how to code react-native app.  
+Version 1.0 (unreleased)
 
 ### dependency
 - Android SDK
@@ -52,3 +54,6 @@ react-native run-android
 
 ### Contributors
 - Apinan Woratrakun
+
+### LICENSE
+Free to copy and learn but not allow to use this app as commercial.
