@@ -18,7 +18,7 @@
     "jetifier": "^1.6.5",
     "moment": "^2.24.0",
     "react": "16.11.0",
-    "react-native": "0.62.2",
+    "react-native": "0.64.0",
     "react-native-awesome-select": "1.0.9",
     "react-native-datepicker": "1.7.2",
     "react-native-device-info": "5.5.5",
