@@ -6,6 +6,7 @@ import {
   Text,
   StatusBar,
   Image,
+  Linking
 } from 'react-native';
 import styles from '../styles/main';
 import {Colors, width} from '../styles/base';
@@ -14,40 +15,16 @@ import {Button, Icon} from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 import Carousel from 'react-native-snap-carousel';
 import LinearGradient from 'react-native-linear-gradient';
+import slideItems from '../configs/slider';
 
+const supportedURL = "https://google.com";
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLogin: false,
       sliderWidth: width,
-      carouselItems: [
-        {
-          image: '../images/slide.jpg',
-          title: 'Item 1',
-          text: 'Text 1',
-        },
-        {
-          image: '../images/slide.jpg',
-          title: 'Item 2',
-          text: 'Text 2',
-        },
-        {
-          image: '../images/slide.jpg',
-          title: 'Item 3',
-          text: 'Text 3',
-        },
-        {
-          image: '../images/slide.jpg',
-          title: 'Item 4',
-          text: 'Text 4',
-        },
-        {
-          image: '../images/slide.jpg',
-          title: 'Item 5',
-          text: 'Text 5',
-        },
-      ],
+      carouselItems: slideItems,
     };
 
     this._renderSlide = this._renderSlide.bind(this);
@@ -64,14 +41,14 @@ export default class Login extends Component {
   };
 
   _renderSlide = ({item, index}) => {
+    // let thisImage = require(item.image);
     return (
       <View style={styles.slide}>
         <Image
-          source={require('../images/slide.jpg')}
+          source={item.image}
           style={styles.slideImage}
         />
         <Text style={styles.slideTitle}>{item.title}</Text>
-        <Text style={styles.slideDescription}>{item.text}</Text>
       </View>
     );
   };
@@ -130,6 +107,12 @@ export default class Login extends Component {
                     titleStyle={styles.googleText}
                     icon={<Icon name="google" type="antdesign" color="#888" />}
                     onPress={() => Actions.replace('Shop')}
+                  />
+                  <Button
+                  buttonStyle={styles.transparentbt}
+                  titleStyle={styles.facbookText}
+                  title="ต้องการความช่วยเหลือ?"
+                  onPress={() => Linking.openURL(supportedURL)}
                   />
                 </View>
               </View>

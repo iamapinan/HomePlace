@@ -50,7 +50,7 @@ const homeStyles = StyleSheet.create({
     borderRadius: util.radiusSize,
     marginHorizontal: util.screenPadding,
     marginBottom: 75,
-    paddingVertical: 5,
+    paddingVertical: 13,
     ...baseStyle.shadowDefault,
   },
   profileName: {

@@ -33,7 +33,7 @@ export default class NextStep extends Component {
   leftRender = () => {
     return (
       <TouchableOpacity onPress={() => Actions.push('Firstime')}>
-        <Icon name="ios-arrow-back" type="ionicon" color="white" size={30} />
+        <Icon name="chevron-left" type="material" color="white" size={30} />
       </TouchableOpacity>
     );
   };
@@ -51,10 +51,14 @@ export default class NextStep extends Component {
       {
         value: 'male',
         label: 'ชาย',
+        key: 'm',
+        color: '#000'
       },
       {
         value: 'female',
         label: 'หญิง',
+        key: 'f',
+        color: '#000'
       },
     ];
 
@@ -140,15 +144,16 @@ export default class NextStep extends Component {
                     this.setState({birthDay: date});
                   }}
                 />
-                <View style={{borderRadius: util.radiusSize, backgroundColor: '#fff', paddingVertical: 10, paddingHorizontal: 10, borderWidth: 1, borderColor: '#ccc'}}>
+                <View style={{borderRadius: util.radiusSize, backgroundColor: '#fff', paddingVertical: 0, paddingHorizontal: 10, borderWidth: 1, borderColor: '#ccc'}}>
                   <RNPickerSelect
                     onValueChange={value => this.setState({gender: value})}
                     items={genderOptions}
                     placeholder={{
                       label: 'ไม่ระบุเพศ',
                       value: null,
+                      key: 'none',
+                      color: '#000'
                     }}
-                    style={{...baseStyle.inputContainer}}
                   />
                 </View>
 

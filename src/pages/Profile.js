@@ -8,6 +8,7 @@ import {Avatar, ListItem} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {Actions} from 'react-native-router-flux';
 import {profileMenu} from '../configs/menu';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -24,9 +25,16 @@ export default class Profile extends Component {
     };
   }
 
-  handleAction = item => {
-    console.log(item.slug);
-    Actions.push(item.slug);
+  handleAction = async item => {
+    // handle logout
+    if(item.slug === 'logout') {
+      await AsyncStorage.removeItem("myCart");
+      await AsyncStorage.removeItem("Token");
+      await AsyncStorage.removeItem("user");
+      Actions.push('Login');
+    } else {
+      Actions.push(item.slug);
+    }
   };
 
   renderSettings = ({item}) => (
@@ -75,7 +83,7 @@ export default class Profile extends Component {
                 activeOpacity={0.7}
                 onEditPress={() => console.log('Works!')}
               />
-              <Text style={styles.profileName}>หมูหวาน บานเช้า</Text>
+              <Text style={styles.profileName}>{this.state.profile.name}</Text>
               <Text style={styles.profileDescription}>
                 หมู่บ้าน {this.state.profile.location}
                 เลขที่ {this.state.profile.address_id}

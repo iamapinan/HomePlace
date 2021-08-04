@@ -8,117 +8,35 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
+  Keyboard,
   ActivityIndicator,
 } from 'react-native';
 import styles from '../styles/default';
-import {Image, Badge, Icon} from 'react-native-elements';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Image, Badge, Icon, Input} from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 import DefaultNavigation from '../components/DefaultNavigation';
 import {Colors, width, height} from '../styles/base';
 import HeaderBar from '../components/HeaderBar';
-
-const shops = [
-  {
-    id: 1,
-    name: 'Pizza shop',
-    image: 'https://source.unsplash.com/560x440/?pizza',
-    subtitle:
-      'Badges are small components typically used to communicate a numerical value or indicate the status of an item to the user',
-    isOpen: false,
-    deliveryCost: 10,
-  },
-  {
-    id: 2,
-    name: 'Steak House',
-    image: 'https://source.unsplash.com/560x440/?steak',
-    subtitle:
-      'Badges are small components typically used to communicate a numerical value or indicate the status of an item to the userBadges are small components typically used to communicate a numerical value or indicate the status of an item to the user',
-    isOpen: true,
-    deliveryCost: 0,
-  },
-  {
-    id: 3,
-    name: 'น้ำปั่น',
-    image: 'https://source.unsplash.com/560x440/?fruit',
-    subtitle:
-      'Badges are small components typically used to communicate a numerical value or indicate the status of an item to the userBadges are small components typically used to communicate a numerical value or indicate the status of an item to the user',
-    isOpen: true,
-    deliveryCost: 0,
-  },
-  {
-    id: 4,
-    name: 'ร้านเค้ก',
-    image: 'https://source.unsplash.com/560x440/?cake',
-    subtitle:
-      'Badges are small components typically used to communicate a numerical value or indicate the status of an item to the userBadges are small components typically used to communicate a numerical value or indicate the status of an item to the user',
-    isOpen: true,
-    deliveryCost: 10,
-  },
-  {
-    id: 5,
-    name: 'อาหารไทย',
-    image: 'https://source.unsplash.com/560x440/?thai-food',
-    subtitle:
-      'Badges are small components typically used to communicate a numerical value or indicate the status of an item to the userBadges are small components typically used to communicate a numerical value or indicate the status of an item to the user',
-    isOpen: false,
-    deliveryCost: 10,
-  },
-  {
-    id: 1,
-    name: 'Pizza shop',
-    image: 'https://source.unsplash.com/560x440/?pizza',
-    subtitle:
-      'Badges are small components typically used to communicate a numerical value or indicate the status of an item to the userBadges are small components typically used to communicate a numerical value or indicate the status of an item to the user',
-    isOpen: false,
-    deliveryCost: 10,
-  },
-  {
-    id: 2,
-    name: 'Steak House',
-    image: 'https://source.unsplash.com/560x440/?steak',
-    subtitle:
-      'Badges are small components typically used to communicate a numerical value or indicate the status of an item to the userBadges are small components typically used to communicate a numerical value or indicate the status of an item to the user',
-    isOpen: true,
-    deliveryCost: 10,
-  },
-  {
-    id: 3,
-    name: 'น้ำปั่น',
-    image: 'https://source.unsplash.com/560x440/?fruit',
-    subtitle:
-      'Badges are small components typically used to communicate a numerical value or indicate the status of an item to the userBadges are small components typically used to communicate a numerical value or indicate the status of an item to the user',
-    isOpen: true,
-    deliveryCost: 15,
-  },
-  {
-    id: 4,
-    name: 'ร้านเค้ก',
-    image: 'https://source.unsplash.com/560x440/?cake',
-    subtitle:
-      'Badges are small components typically used to communicate a numerical value or indicate the status of an item to the userBadges are small components typically used to communicate a numerical value or indicate the status of an item to the user',
-    isOpen: true,
-    deliveryCost: 0,
-  },
-  {
-    id: 5,
-    name: 'อาหารไทย',
-    image: 'https://source.unsplash.com/560x440/?thai-food',
-    subtitle:
-      'Badges are small components typically used to communicate a numerical value or indicate the status of an item to the userBadges are small components typically used to communicate a numerical value or indicate the status of an item to the user',
-    isOpen: false,
-    deliveryCost: 10,
-  },
-];
-
+import ShopItems from '../configs/ShopItems';
+import category from '../configs/category'
 export default class Shop extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userInfo: '',
       loadingMore: false,
+      searchString: '',
+      shopList: ShopItems.sort( a => a.isOpen === false )
     };
+  }
+
+  _getCategory (type) {
+    return category.filter(i => i.type==type)[0]
+  }
+
+  _searchHandle () {
+    Keyboard.dismiss();
+    console.log(this.state.searchString)
   }
 
   rightRender = propsItem => {
@@ -127,26 +45,38 @@ export default class Shop extends Component {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          width: 60,
+          width: 30,
         }}>
         <TouchableOpacity
-          onPress={() => Actions.push('Search', {searchType: 'shop'})}>
-          <Ionicons name="ios-search" color={Colors.white} size={24} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.filtersOption}>
-          <MaterialCommunityIcons
-            name="filter-variant"
-            color={Colors.white}
-            size={24}
-          />
+          onPress={ () => this._searchHandle() }>
+          <Icon name="search" type="material" color={Colors.white} size={24} />
         </TouchableOpacity>
       </View>
     );
   };
+
   centerRender = propsItem => {
     return (
-      <View>
-        <Text style={styles.titleText}>ร้านค้า</Text>
+      <View style={{marginLeft: -15}}>
+        <Input
+          placeholder="ค้นหาร้านค้า"
+          onChangeText={text => this.setState({searchString: text})}
+          containerStyle={{
+            marginVertical: 8,
+            paddingHorizontal: 20,
+            fontSize: 16,
+            width: width-120
+          }}
+          onSubmitEditing={ () => this._searchHandle() }
+          returnKeyType="search"
+          inputContainerStyle={{
+            borderBottomWidth: 0
+          }}
+          inputStyle={{
+            color: '#fff',
+          }}
+          placeholderTextColor="rgba(230, 131, 197,0.8)"
+        />
       </View>
     );
   };
@@ -162,7 +92,6 @@ export default class Shop extends Component {
   _handleLoadMore = () => {
     this.setState({loadingMore: true});
   };
-  filtersOption = () => {};
 
   _renderFooter = () => {
     if (!this.state.loadingMore) {
@@ -184,68 +113,75 @@ export default class Shop extends Component {
     );
   };
 
-  renderItem = ({item}) => (
-    <TouchableOpacity
-      onPress={() => {
-        if(item.isOpen)
-          Actions.push('StoreDetails', {store: item})
-      }}
-      style={{
-        padding: 5,
-        borderRadius: 4,
-        marginVertical: 5,
-        backgroundColor: '#fff',
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-      }}>
-      <View style={{width: 100, marginRight: 15}}>
-        {
-          !item.isOpen &&
-            <View style={{width: 100, height: 100, opacity: 0.6, backgroundColor: '#000', position: 'absolute', zIndex: 1}}>
-            </View>
-        }
-        <Image source={{uri: item.image}} style={{width: 100, height: 100}} />
-      </View>
-      <View
+  renderItem = ({item, index}) => {
+    const shop_type = this._getCategory(item.type);
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          if(item.isOpen)
+            Actions.push('StoreDetails', {shop: item})
+        }}
         style={{
-          flexDirection: 'column',
+          paddingVertical: 10,
+          paddingHorizontal: 10,
+          marginBottom: 1,
+          backgroundColor: '#fff',
+          flexDirection: 'row',
           justifyContent: 'flex-start',
-          paddingTop: 5,
         }}>
+        <View style={{width: 100, marginRight: 15}}>
+          {
+            !item.isOpen &&
+              <View style={{
+                  width: 100, 
+                  height: 100,
+                  backgroundColor: 'rgba(0,0,0,0.5)', 
+                  position: 'absolute', 
+                  zIndex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                <Text style={{color: Colors.white}}>ร้านปิด</Text>
+              </View>
+          }
+          <Image source={{uri: item.image}} style={{width: 100, height: 100}} />
+        </View>
         <View
           style={{
-            flexDirection: 'row',
-            marginBottom: 10,
-            justifyContent: 'space-between',
-            width: width - 170,
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            paddingTop: 5,
           }}>
-          <Badge
-            value="อาหาร"
-            status="warning"
-            badgeStyle={{paddingHorizontal: 3}}
-          />
-          {item.isOpen ? (
-            <Text style={{color: Colors.green}}>เปิด</Text>
-          ) : (
-            <Text style={{color: Colors.gray}}>ปิด</Text>
-          )}
+          <View
+            style={{
+              flexDirection: 'row',
+              marginBottom: 10,
+              justifyContent: 'space-between',
+              width: width - 170,
+            }}>
+            <Badge
+              value={shop_type.label}
+              status="warning"
+              badgeStyle={{paddingHorizontal: 3}}
+            />
+          </View>
+          <Text style={{color: Colors.black}}>{item.name}</Text>
+          <Text
+            style={{...styles.textGray, width: width - 170}}
+            numberOfLines={2}>
+            {item.subtitle}
+          </Text>
         </View>
-        <Text style={{color: Colors.black}}>{item.name}</Text>
-        <Text
-          style={{...styles.textGray, width: width - 170}}
-          numberOfLines={2}>
-          {item.subtitle}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
+      </TouchableOpacity>
+    );
+  }
 
   render() {
     return (
       <>
         <SafeAreaView
           style={{...styles.mainContainer, backgroundColor: '#eee'}}>
-          <StatusBar barStyle="dark-content" />
+          <StatusBar barStyle="light-content" />
           <HeaderBar
             leftComponent={() => this.leftRender()}
             rightComponent={() => this.rightRender()}
@@ -261,7 +197,7 @@ export default class Shop extends Component {
               }}>
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
-                data={shops}
+                data={this.state.shopList}
                 renderItem={this.renderItem}
                 onEndReached={this._handleLoadMore}
                 onEndReachedThreshold={0.5}

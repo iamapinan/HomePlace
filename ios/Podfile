@@ -85,10 +85,6 @@ target 'HomePlace' do
   pod 'react-native-blur', :path => '../node_modules/@react-native-community/blur'
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
-  target 'HomePlaceTests' do
-    inherit! :complete
-    # Pods for testing
-  end
 
   use_native_modules!
 
@@ -102,11 +98,3 @@ target 'HomePlace' do
   end
 end
 
-target 'HomePlace-tvOS' do
-  # Pods for HomePlace-tvOS
-
-  target 'HomePlace-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-end

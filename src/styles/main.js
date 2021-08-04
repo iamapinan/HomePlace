@@ -52,6 +52,12 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 1,
   },
+  transparentbt: {
+    backgroundColor: 'transparent',
+    borderRadius: 32,
+    height: 50,
+    marginVertical: 5
+  },
   googleText: {color: '#888', marginLeft: 10},
   linebt: {
     backgroundColor: '#00C300',
@@ -74,14 +80,17 @@ const styles = StyleSheet.create({
     height: 240,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
   },
   slideTitle: {
-    color: '#333',
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
     paddingVertical: 5,
     paddingHorizontal: 10,
     fontFamily: defaultFont,
+    textAlign: 'left'
   },
   slideDescription: {
     color: '#666',
@@ -91,20 +100,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   slide: {
-    backgroundColor: '#fff',
     borderRadius: 8,
-    height: 310,
+    height: 280,
     marginLeft: 0,
     marginRight: 0,
     marginBottom: 15,
-    shadowColor: '#ccc',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 1.41,
-    elevation: 8,
   },
   LoginTopIcon: {
     width: 45,

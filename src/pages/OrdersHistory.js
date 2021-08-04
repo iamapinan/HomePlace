@@ -62,7 +62,7 @@ const orders = [
   },
 ];
 
-export default class Orders extends Component {
+export default class OrdersHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -102,7 +102,7 @@ export default class Orders extends Component {
           style={{width: 30, height: 30, borderRadius: 4, marginRight: 10}}
         />
         <View>
-          <Text style={{fontSize: 14, marginBottom: 5}}>{item.title}</Text>
+          <Text style={{fontSize: 14, marginBottom: 5, color: Colors.black}}>{item.title}</Text>
           <Text style={{color: Colors.orange, fontSize: 14}}>
             10.00 {this.state.currencySymbol}
           </Text>
@@ -138,7 +138,7 @@ export default class Orders extends Component {
     return (
       <View style={{...styles.mainContainer, backgroundColor: '#eee'}}>
         <SafeAreaView>
-          <StatusBar barStyle="dark-content" />
+          <StatusBar barStyle="light-content" />
           <HeaderBar
             // leftComponent={() => this.leftRender()}
             centerComponent={() => this.centerRender()}
@@ -158,7 +158,7 @@ export default class Orders extends Component {
             </View>
           </ScrollView>
         </SafeAreaView>
-        <DefaultNavigation active="Orders" />
+        <DefaultNavigation active="OrdersHistory" />
       </View>
     );
   }

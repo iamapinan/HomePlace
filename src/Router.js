@@ -9,8 +9,9 @@ import Products from './pages/Products';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
 import ProductDetails from './pages/ProductDetails';
+import ShopProductDetail from './pages/ShopProductDetail';
 import StoreDetails from './pages/StoreDetails';
-import Orders from './pages/Orders';
+import OrdersHistory from './pages/OrdersHistory';
 import About from './pages/About';
 
 const RouterComponent = props => {
@@ -27,8 +28,9 @@ const RouterComponent = props => {
         <Scene key="Profile" component={Profile} hideNavBar />
         <Scene key="Search" component={Search} hideNavBar />
         <Scene key="ProductDetails" component={ProductDetails} hideNavBar />
+        <Scene key="ShopProductDetail" component={ShopProductDetail} hideNavBar />
         <Scene key="StoreDetails" component={StoreDetails} hideNavBar />
-        <Scene key="Orders" component={Orders} hideNavBar />
+        <Scene key="OrdersHistory" component={OrdersHistory} hideNavBar />
         <Scene key="About" component={About} hideNavBar />
       </Stack>
     </Router>

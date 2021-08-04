@@ -16,21 +16,21 @@ import styles from '../styles/default';
 import {Colors, width, height, util, baseStyle, defaultFont} from '../styles/base';
 import {Actions} from 'react-native-router-flux';
 import HeaderBar from '../components/HeaderBar';
-
+import category from '../configs/category'
 export default class StoreDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
       cart: [],
-      store: {
-        id: this.props.store.id,
-        name: this.props.store.name,
-        subtitle: this.props.store.subtitle,
-        image: this.props.store.image,
+      shop: {
+        id: this.props.shop.id,
+        name: this.props.shop.name,
+        subtitle: this.props.shop.subtitle,
+        image: this.props.shop.image,
         avatar: '../images/avatar.jpg',
-        type: this.props.store.type,
-        isOpen: this.props.store.isOpen,
-        deliveryCost: this.props.store.deliveryCost,
+        type: this._getCategory(this.props.shop.type),
+        isOpen: this.props.shop.isOpen,
+        deliveryCost: this.props.shop.deliveryCost,
         products: [
           {
             id: 1,
@@ -54,10 +54,19 @@ export default class StoreDetails extends Component {
       },
     };
   }
+
+  async componentDidMount () {
+
+  }
+
+  _getCategory (t) {
+    return category.filter(i => i.type==t)[0]
+  }
+
   leftRender = propsItem => {
     return (
       <TouchableOpacity onPress={() => Actions.pop()}>
-        <Icon name="ios-arrow-back" type="ionicon" color="white" size={30} />
+        <Icon name="chevron-left" type="material" color="white" size={30} />
       </TouchableOpacity>
     );
   };
@@ -80,7 +89,7 @@ export default class StoreDetails extends Component {
     return (
       <View>
         <Text style={styles.titleText} numberOfLines={1}>
-          {this.props.store.name}
+          {this.props.shop.name}
         </Text>
       </View>
     );
@@ -92,12 +101,12 @@ export default class StoreDetails extends Component {
         style={{
           flexDirection: 'row',
           backgroundColor: Colors.white,
-          marginVertical: 1,
+          marginVertical: 3,
           padding: 10,
           borderRadius: util.borderRadius,
           ...baseStyle.shadowDefault,
         }}
-        onPress={() => this.setState({cart: [...this.state.cart, item]})}>
+        onPress={ () => Actions.push('ShopProductDetail', {'product': item}) }>
         <Image
           source={{uri: item.image}}
           style={{
@@ -108,10 +117,10 @@ export default class StoreDetails extends Component {
           }}
         />
         <View>
-          <Text style={{fontSize: 16, width: width - 145}} numberOfLines={1}>
+          <Text style={{fontSize: 16, width: width - 145, color: Colors.black}} numberOfLines={1}>
             {item.title}
           </Text>
-          <Text style={{color: Colors.orange, marginTop: 5}}>
+          <Text style={{color: Colors.black50, marginTop: 5}}>
             {item.price} บาท
           </Text>
         </View>
@@ -120,10 +129,11 @@ export default class StoreDetails extends Component {
   };
 
   render() {
+    const shop = this.state.shop
     return (
       <View style={{...styles.mainContainer, backgroundColor: '#eee'}}>
         <SafeAreaView>
-          <StatusBar barStyle="dark-content" />
+          <StatusBar barStyle="light-content" />
           <HeaderBar
             centerComponent={() => this.centerRender()}
             rightComponent={() => this.RightRender()}
@@ -131,7 +141,7 @@ export default class StoreDetails extends Component {
           />
           <ScrollView>
             <View style={{...styles.contentContainer, paddingHorizontal: 10}}>
-              <TouchableOpacity
+              <View
                 style={{
                   backgroundColor: Colors.white,
                   padding: 10,
@@ -140,7 +150,7 @@ export default class StoreDetails extends Component {
                   ...baseStyle.shadowDefault,
                 }}>
                 <ImageBackground
-                  source={{uri: this.state.store.image}}
+                  source={{uri: shop.image}}
                   style={{
                     width: width - 40,
                     height: height / 4,
@@ -149,20 +159,28 @@ export default class StoreDetails extends Component {
                     padding: 10,
                     flexDirection: 'row',
                     justifyContent: 'flex-end',
-                    opacity: this.state.store.isOpen ? 1 : 0.3,
+                    opacity: shop.isOpen ? 1 : 0.3,
                   }}>
-                  <Text
-                    style={{
-                      color: Colors.white,
+                  <View style={{
                       height: 24,
-                      maxWidth: 80,
+                      minWidth: 65,
+                      maxWidth: 140,
                       opacity: 0.8,
+                      borderRadius: 4,
                       paddingVertical: 1,
-                      paddingHorizontal: 5,
+                      paddingHorizontal: 7,
                       backgroundColor: Colors.black,
-                    }}>
-                    อาหาร
-                  </Text>
+                      justifyContent: 'space-between',
+                      flexDirection: 'row'
+                  }}>
+                    <Icon name={shop.type.icon} type="material-community" size={20} color={Colors.white}/>
+                    <Text
+                      style={{ marginLeft: 5, color: Colors.white,}}>
+                      {
+                        shop.type.label
+                      }
+                    </Text>
+                  </View>
                 </ImageBackground>
                 <View
                   style={{
@@ -174,16 +192,16 @@ export default class StoreDetails extends Component {
                     style={{
                       fontSize: 18,
                     }}>
-                    {this.state.store.name}
+                    {shop.name}
                   </Text>
-                  {this.state.store.isOpen ? (
+                  {shop.isOpen ? (
                     <Text style={{color: Colors.green}}>ร้านเปิด</Text>
                   ) : (
                     <Text style={{color: Colors.red}}>ร้านปิด</Text>
                   )}
                 </View>
                 <Text style={{color: Colors.black50}}>
-                  {this.state.store.subtitle}
+                  {shop.subtitle}
                 </Text>
                 <View
                   style={{
@@ -205,21 +223,21 @@ export default class StoreDetails extends Component {
                       color={Colors.primary}
                       size={16}
                     />
-                    <Text style={{marginLeft: 5, marginTop: -2}}>
+                    <Text style={{marginLeft: 5, marginTop: -2, color: Colors.primary}}>
                       ค่าจัดส่ง{' '}
-                      {this.state.store.deliveryCost == 0
+                      {shop.deliveryCost == 0
                         ? 'ฟรี'
-                        : this.state.store.deliveryCost + ' บาท'}
+                        : shop.deliveryCost + ' บาท'}
                     </Text>
                   </View>
                 </View>
-              </TouchableOpacity>
+              </View>
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
-                data={this.state.store.products}
+                data={shop.products}
                 renderItem={this.productRender}
               />
-              {this.state.store.isOpen && (
+              {shop.isOpen && (
                 <View>
                   <Button
                     title="สรุปรายการสั่งซื้อ"

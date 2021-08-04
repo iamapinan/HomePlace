@@ -28,7 +28,7 @@ export default class About extends Component {
   leftRender = propsItem => {
     return (
       <TouchableOpacity onPress={() => Actions.pop()}>
-        <Icon name="ios-arrow-back" type="ionicon" color="white" size={30} />
+        <Icon name="chevron-left" type="material" color="white" size={30} />
       </TouchableOpacity>
     );
   };

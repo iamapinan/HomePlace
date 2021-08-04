@@ -11,59 +11,14 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import DefaultNavigation from '../components/DefaultNavigation';
-import {Image} from 'react-native-elements';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Image, Icon} from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from '../styles/default';
 import {Colors, width, height} from '../styles/base';
 import {Actions} from 'react-native-router-flux';
 import HeaderBar from '../components/HeaderBar';
+import productPage from '../configs/productPage'
 // import { ScrollView } from 'react-native-gesture-handler';
-
-const products = [
-  {
-    id: 1,
-    title: 'Cookie',
-    description: 'Test Product data',
-    image: 'https://source.unsplash.com/800x440/?cookie',
-    price: 100,
-  },
-  {
-    id: 2,
-    title: 'Bike',
-    description: 'Test Product data',
-    image: 'https://source.unsplash.com/800x440/?bike',
-    price: 120,
-  },
-  {
-    id: 3,
-    title: 'Car',
-    description: 'Test Product data',
-    image: 'https://source.unsplash.com/800x440/?car',
-    price: 130,
-  },
-  {
-    id: 4,
-    title: 'Book',
-    description: 'Test Product data',
-    image: 'https://source.unsplash.com/800x440/?book',
-    price: 40,
-  },
-  {
-    id: 5,
-    title: 'Pen',
-    description: 'Test Product data',
-    image: 'https://source.unsplash.com/800x440/?pen',
-    price: 10,
-  },
-  {
-    id: 6,
-    title: 'Macbook',
-    description: 'Test Product data',
-    image: 'https://source.unsplash.com/800x440/?macbook',
-    price: 500,
-  },
-];
 
 export default class Products extends Component {
   constructor(props) {
@@ -78,11 +33,11 @@ export default class Products extends Component {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          width: 60,
+          width: 30,
         }}>
         <TouchableOpacity
-          onPress={() => Actions.push('Search', {searchType: 'shop'})}>
-          <Ionicons name="ios-search" color={Colors.white} size={24} />
+          onPress={() => Actions.push('Search', {searchType: 'products'})}>
+          <Icon name="search" type="material" color={Colors.white} size={24} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.filtersOption}>
           <MaterialCommunityIcons
@@ -153,7 +108,7 @@ export default class Products extends Component {
     return (
       <View style={{...styles.mainContainer, backgroundColor: '#eee'}}>
         <SafeAreaView>
-          <StatusBar barStyle="dark-content" />
+          <StatusBar barStyle="light-content" />
           <HeaderBar
             rightComponent={() => this.rightRender()}
             centerComponent={() => this.centerRender()}
@@ -162,7 +117,7 @@ export default class Products extends Component {
             <View style={{...styles.contentContainer, paddingHorizontal: 10}}>
               <FlatList
                 numColumns={2}
-                data={products}
+                data={productPage}
                 renderItem={this.renderItem}
                 keyExtractor={(item, index) => index.toString()}
                 onEndReached={this._handleLoadMore}

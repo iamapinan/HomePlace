@@ -25,7 +25,7 @@ export default class Search extends Component {
   leftRender = () => {
     return (
       <TouchableOpacity onPress={() => Actions.pop()}>
-        <Icon name="ios-arrow-back" type="ionicon" color="white" size={24} />
+        <Icon name="chevron-left" type="material" color="white" size={24} />
       </TouchableOpacity>
     );
   };
@@ -33,7 +33,7 @@ export default class Search extends Component {
   rightRender = propsItem => {
     return (
       <TouchableOpacity>
-        <Icon name="ios-search" type="ionicon" color={Colors.white} size={24} />
+        <Icon name="search" type="material" color={Colors.white} size={24} />
       </TouchableOpacity>
     );
   };
@@ -67,7 +67,7 @@ export default class Search extends Component {
     return (
       <LinearGradient colors={Colors.gradientGray} style={styles.mainContainer}>
         <SafeAreaView style={styles.mainContainer}>
-          <StatusBar barStyle="dark-content" />
+          <StatusBar barStyle="light-content" />
           <ScrollView>
             <HeaderBar
               leftComponent={() => this.leftRender()}

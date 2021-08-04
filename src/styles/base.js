@@ -1,7 +1,9 @@
 import {Dimensions, StyleSheet} from 'react-native';
 const Colors = {
   primary: '#721B65',
+  primaryDarker: '#360325',
   primaryLight: '#fff2fd',
+  primaryLight2: '#e683c5',
   red: '#B80D57',
   orange: '#F8615A',
   yellow: '#FFD868',

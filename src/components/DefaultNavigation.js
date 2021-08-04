@@ -20,15 +20,15 @@ export default class DefaultNavigation extends Component {
           icon: 'store',
           label: 'ร้านค้า',
         },
+        // {
+        //   key: 'Products',
+        //   icon: 'cube',
+        //   label: 'สินค้า',
+        // },
         {
-          key: 'Products',
-          icon: 'cube',
-          label: 'สินค้า',
-        },
-        {
-          key: 'Orders',
-          icon: 'list',
-          label: 'รายการ',
+          key: 'OrdersHistory',
+          icon: 'history',
+          label: 'ประวัติ',
         },
         {
           key: 'Profile',
