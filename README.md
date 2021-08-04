@@ -5,10 +5,11 @@ You can use this app as a example to learn how to code react-native app.
 
 ![Build Status](https://github.com/iamapinan/HomePlace/workflows/Java%20CI%20with%20Gradle/badge.svg)
 
-### dependency
-- Android SDK
-- Android Studio must installed
-- Android virtual device or real device.
+### Prerequisite to start develop!
+- JAVA SDK for Android
+- XCode for iOS development and testing.
+- Android Studio must installed.
+- Android emulator or real device for test.
 
 ### To use react native cli command
 try to install `npm install -g react-native-cli`
