@@ -1,9 +1,7 @@
 ![Logo](src/images/icons/logo_1.png)
 
-# HomePlace 
-I make this app for idea proving for food order app.  
-You can use this app as a example to learn how to code react-native app.  
-Version 1.0
+I make this app for idea proving for marketplace app.
+You can use this app as a example to learn how to code react-native app. 
 
 ![Build Status](https://github.com/iamapinan/HomePlace/workflows/Java%20CI%20with%20Gradle/badge.svg)
 
