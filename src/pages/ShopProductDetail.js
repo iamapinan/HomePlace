@@ -24,11 +24,21 @@ export default class ShopProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      numberOfProduct: 0
+      numberOfProduct: 0,
+      disableEdit: false
     };
   }
 
   componentDidMount() {
+    this.checkTheCart()
+  }
+
+  async checkTheCart() {
+    let cart = [];
+    cart = await AsyncStorage.getItem('myCart');
+    cart = await JSON.parse(cart)
+    let product = cart.filter(pd => pd.id === this.props.product.id);
+    this.setState({ numberOfProduct: product[0].count });
   }
 
   leftRender = propsItem => {
@@ -59,6 +69,7 @@ export default class ShopProductDetail extends Component {
   }
 
   async _handleAddtoCart() {
+    await this.setState({disableEdit: true})
     let productObject = {
       ...this.props.product,
       count: this.state.numberOfProduct
@@ -82,15 +93,13 @@ export default class ShopProductDetail extends Component {
     await AsyncStorage.removeItem("myCart");
     await AsyncStorage.setItem("myCart", JSON.stringify(currentProduct));
     
-    console.log(currentProduct)
-
     Toast.show('👌 เพิ่มสินค้าใส่รถเข็นแล้วจำนวน '+this.state.numberOfProduct, {
-        duration: Toast.durations.SHORT,
+        duration: 1000,
         position: Toast.positions.BOTTOM,
         shadow: true,
         animation: true,
         onHidden: () => {
-          Actions.pop();
+          Actions.pop({ refresh: {} });
         }
     });
   
@@ -153,16 +162,19 @@ export default class ShopProductDetail extends Component {
                     titleStyle={productStyle.valueButtonLabel}
                   />
                 </View>
-
-              <Button
-                onPress={() => this._handleAddtoCart()}
-                title="ใส่รถเข็น"
-                buttonStyle={{
-                  backgroundColor: Colors.yellow,
-                  borderRadius: util.radiusSize,
-                }}
-                titleStyle={{color: Colors.black}}
-              />
+              {
+              this.state.numberOfProduct > 0 &&
+                <Button
+                  onPress={() => this._handleAddtoCart()}
+                  title="ใส่รถเข็น"
+                  disabled={this.state.disableEdit}
+                  buttonStyle={{
+                    backgroundColor: Colors.yellow,
+                    borderRadius: util.radiusSize,
+                  }}
+                  titleStyle={{color: Colors.black}}
+                />
+              }
             </View>
           </ScrollView>
         </SafeAreaView>

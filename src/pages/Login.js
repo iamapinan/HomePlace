@@ -17,7 +17,7 @@ import Carousel from 'react-native-snap-carousel';
 import LinearGradient from 'react-native-linear-gradient';
 import slideItems from '../configs/slider';
 
-const supportedURL = "https://google.com";
+const supportedURL = "https://homeplace.app/";
 export default class Login extends Component {
   constructor(props) {
     super(props);

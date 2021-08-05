@@ -17,11 +17,13 @@ import {Colors, width, height, util, baseStyle, defaultFont} from '../styles/bas
 import {Actions} from 'react-native-router-flux';
 import HeaderBar from '../components/HeaderBar';
 import category from '../configs/category'
+import AsyncStorage from '@react-native-community/async-storage';
 export default class StoreDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
       cart: [],
+      itemCount: 0,
       shop: {
         id: this.props.shop.id,
         name: this.props.shop.name,
@@ -56,7 +58,23 @@ export default class StoreDetails extends Component {
   }
 
   async componentDidMount () {
+    await this._getMyCart();
+    console.log(this.state.cart)
+  }
 
+  async UNSAFE_componentWillReceiveProps(props){
+    await this._getMyCart();
+  }
+
+  async _getMyCart() {
+    let product = [], allProduct = 0;
+    product = await AsyncStorage.getItem('myCart');
+    product = JSON.parse(product);
+    product = (product.length === 0) ? [] : product;
+    product.forEach(p => {
+      allProduct = p.count+allProduct;
+    })
+    this.setState({ cart: product, itemCount: allProduct });
   }
 
   _getCategory (t) {
@@ -72,16 +90,10 @@ export default class StoreDetails extends Component {
   };
   RightRender = propsItem => {
     return (
-      <TouchableOpacity onPress={() => Actions.pop()}>
+      <TouchableOpacity onPress={() => AsyncStorage.removeItem("myCart")}>
           <View> 
             <Icon name="shopping-cart" type="Feather" color={Colors.white} size={24} />
-            {
-              this.state.cart.length == 0 &&
-                  <View style={styles.reddot}></View>
-            }
-            </View>
-
-
+          </View>
       </TouchableOpacity>
     );
   };
@@ -96,6 +108,17 @@ export default class StoreDetails extends Component {
   };
 
   productRender = ({item}) => {
+    let counting = this.state.cart.filter(i => i.id === item.id), itemTitle;
+    if(counting.length === 0) {
+      itemTitle = (<View>
+        <Text style={{fontSize: 16, width: width - 145, color: Colors.black}} numberOfLines={1}>{item.title}</Text>
+      </View>);
+    } else {
+      itemTitle = (<View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+        <Text style={{fontSize: 16, color: Colors.black}} numberOfLines={1}>{item.title}</Text>
+        <Text style={{fontSize: 16, color: Colors.green}}> × {counting[0].count}</Text>
+      </View>);
+    }
     return (
       <TouchableOpacity
         style={{
@@ -117,9 +140,7 @@ export default class StoreDetails extends Component {
           }}
         />
         <View>
-          <Text style={{fontSize: 16, width: width - 145, color: Colors.black}} numberOfLines={1}>
-            {item.title}
-          </Text>
+          {itemTitle}
           <Text style={{color: Colors.black50, marginTop: 5}}>
             {item.price} บาท
           </Text>
@@ -139,8 +160,8 @@ export default class StoreDetails extends Component {
             rightComponent={() => this.RightRender()}
             leftComponent={() => this.leftRender()}
           />
-          <ScrollView>
-            <View style={{...styles.contentContainer, paddingHorizontal: 10}}>
+          <ScrollView style={{height: height-60}}>
+            <View style={{...styles.contentContainer, paddingHorizontal: 10, paddingBottom: 10}}>
               <View
                 style={{
                   backgroundColor: Colors.white,
@@ -237,21 +258,32 @@ export default class StoreDetails extends Component {
                 data={shop.products}
                 renderItem={this.productRender}
               />
-              {shop.isOpen && (
-                <View>
-                  <Button
-                    title="สรุปรายการสั่งซื้อ"
-                    buttonStyle={{
-                      backgroundColor: Colors.yellow,
-                      marginVertical: 10,
-                      borderRadius: util.radiusSize,
-                    }}
-                    titleStyle={{color: Colors.black, fontFamily: defaultFont}}
-                  />
-                </View>
-              )}
+              
             </View>
           </ScrollView>
+          {
+            (shop.isOpen && this.state.cart.length > 0) && 
+              <View style={{
+                position: 'absolute',
+                bottom: 0,
+                width: width,
+                height: 65,
+                paddingHorizontal: 10,
+                backgroundColor: Colors.white,
+                zIndex: 999
+              }}>
+                <Button
+                  onPress={() => Actions.push("Summary", {shopName: shop.name, delivery: this.state.shop.deliveryCost})}
+                  title={"สรุปรายการสั่งซื้อ × "+this.state.itemCount}
+                  buttonStyle={{
+                    backgroundColor: Colors.yellow,
+                    marginVertical: 10,
+                    borderRadius: util.radiusSize,
+                  }}
+                  titleStyle={{color: Colors.black, fontFamily: defaultFont}}
+                />
+              </View>
+          }
         </SafeAreaView>
       </View>
     );

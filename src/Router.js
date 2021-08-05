@@ -13,6 +13,8 @@ import ShopProductDetail from './pages/ShopProductDetail';
 import StoreDetails from './pages/StoreDetails';
 import OrdersHistory from './pages/OrdersHistory';
 import About from './pages/About';
+import Summary from './pages/Summary';
+import OrderDetail from './pages/OrderDetail';
 
 const RouterComponent = props => {
   console.disableYellowBox = true;
@@ -32,6 +34,8 @@ const RouterComponent = props => {
         <Scene key="StoreDetails" component={StoreDetails} hideNavBar />
         <Scene key="OrdersHistory" component={OrdersHistory} hideNavBar />
         <Scene key="About" component={About} hideNavBar />
+        <Scene key="Summary" component={Summary} hideNavBar />
+        <Scene key="OrderDetail" component={OrderDetail} hideNavBar />
       </Stack>
     </Router>
   );

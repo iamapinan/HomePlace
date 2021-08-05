@@ -159,11 +159,12 @@ export default class Shop extends Component {
               justifyContent: 'space-between',
               width: width - 170,
             }}>
-            <Badge
-              value={shop_type.label}
-              status="warning"
-              badgeStyle={{paddingHorizontal: 3}}
-            />
+              <View style={{backgroundColor: Colors.primary, maxHeight: 30, maxWidth: 140, minWidth: 65, flexDirection: 'row', paddingHorizontal: 5, paddingVertical: 1, borderRadius: 4}}>
+              <Icon name={shop_type.icon} type="material-community" size={13} color={Colors.white}/>
+              <Text
+                style={{color: Colors.white,paddingHorizontal: 3, fontSize: 12}}
+              > {shop_type.label} </Text>
+              </View>
           </View>
           <Text style={{color: Colors.black}}>{item.name}</Text>
           <Text

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "772628319598",
+    "firebase_url": "https://homeplace-ac785.firebaseio.com",
+    "project_id": "homeplace-ac785",
+    "storage_bucket": "homeplace-ac785.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772628319598:android:572f9bd390fb6addd1057f",
+        "android_client_info": {
+          "package_name": "com.homeplace.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772628319598-hn25d6paligun3hlqnr2r2sk3r5u17tm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJM1FhGLlfKxcoaS4GXr3XAJqtVJWBqsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "772628319598-hn25d6paligun3hlqnr2r2sk3r5u17tm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
